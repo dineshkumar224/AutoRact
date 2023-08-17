@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+    <title>KYC Data</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+      
+    <script>
+        $(document).ready(function() {
+            $('#upload').click(function () {
+                alert("upload called");
+                $.ajax({
+                    url: "http://127.0.0.1:8080/kyc",
+                    data: $('#document').attr('files'),
+                    type: "POST",
+                    contentType: "multipart/form-data",
+                    success: function (data) {
+                        var result = $('<div />').append(data).find('#text').html();
+                        $('#showresults').html(result);
+                    },
+                    error: function (xhr, status) {
+                        alert("Sorry, there was a problem!");
+                    },
+                    complete: function (xhr, status) {
+                        //$('#showresults').slideDown('slow')
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</head>
+
+<body>
+    <!--<form method="post" enctype="multipart/form-data">-->
+        {% csrf_token %}
+        
+        <input type="file" name="document">
+         <!--<input type="checkbox" id="doc" name="img" >
+        <label for="doc"> upload ur file</label><br><br> -->
+        <button type ="submit" id="upload">upload file </button><br><br>
+        Name: <input value="{{Name}}" name="name"> </input><br><br>
+        father's Name: <input value="{{FatherName}} " name="fname"> </input><br><br>
+        ID no: <input value="{{idno}}" name="idno"> </input><br><br>
+        Date of Birth: <input value="{{DateofBirth}}" name="dob"> </input><br><br>
+        Gender: <input value="{{gender}}" name="gender"> </input><br><br>
+        ID Type: <input value="{{IDType}}" name="idtype"> </input><br><br>
+        
+    <!--</form>-->
+            
+    <div id="showresults">
+        
+    </div>
+</body>

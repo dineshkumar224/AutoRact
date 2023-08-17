@@ -1,0 +1,194 @@
+<!DOCTYPE html><html>
+<head>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'KYCData/autoract.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+  </script>
+  <script>
+    
+    function upload_image()
+    {
+    $('#loadingmessage').show();
+    var formData = new FormData();
+    var filedata = $('input[type=file]')[0].files[0];
+    formData.append('file', filedata); 
+    console.log(formData)
+    
+    $.ajax({
+        type:'POST', url : '../upload-image',
+        async: true,
+        data:formData,
+        contentType: false,
+        processData: false,
+        success : function(data){
+          $('#loadingmessage').hide();
+            $('#showdetails').html(data)
+        },
+    })
+    }
+    
+    </script>
+    <!--<video id="video" width="640" height="480" autoplay></video>
+    <button id="snap">Take Photo</button>
+    <canvas id="canvas" width="640" height="480"></canvas>-->
+  
+  <div class="v1_2">
+     <!--<div id="container">
+      <video autoplay="true" id="videoElement">
+  
+      </video>
+    </div>
+    <script>
+      let video = document.querySelector("#videoElement");
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({video : true})
+        .then(function(stream){
+          video.srcObject = stream;
+        })
+        .catch(function(error){
+          console.log("something went wrong");
+        })
+      }
+      else
+      {
+        console.log("getUsermedia not supported");
+      }
+    </script>
+    <script>
+      let canvas = document.querySelector("#canvas");
+let context = canvas.getContext("2d");
+let video = document.querySelector("#video");
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+  navigator.mediaDevices.getUserMedia({video: true}).then((stream) =>{
+     video.srcObject = stream;
+     video.play();
+  });
+}
+document.getElementById("snap").addEventListener("click", () => {
+  context.drawImage(video, 0, 0, 640, 480); 
+
+  canvas.toBlob(function(blob){
+    console.log(typeof(blob))
+    var blobUrl = URL.createObjectURL(blob);
+    var link = document.createElement("a"); 
+    link.href = blobUrl;
+    link.download = "image.jpg";
+    link.innerHTML = "Click here to download the file";
+    document.body.appendChild(link); 
+    document.querySelector('a').click() 
+  }, 'image/jpeg', 1); 
+
+});
+
+
+  </script>-->
+  
+    
+    <div class="v13_16">
+      {% load static %}
+      
+      <img src="{% static 'KYCData/images/autoract_trans.png' %}" alt="Autoract Logo" width="200" height="50" >
+    </div>
+    <div class="">
+
+    </div>
+    <div class="v5_15">
+
+    </div>
+    <span class="v13_16"></span>
+    <div class="v13_17">
+      {% load static %}
+      
+      <img src="{% static 'KYCData/images/ocr9.jpg' %}" width="370" height="260">
+    </div>
+
+    <span class="v13_24">All  your 
+cards 
+Autofilled!</span>
+
+<span class="v13_27">Our goal is to provide an API that can be used by different financial institutions to extract data automatically from different ID card images for KYC.
+</span>
+
+<div class="v13_28">
+
+</div>
+
+<div class="v13_30">
+
+{% load static %}
+      
+      <img src="{% static 'KYCData/images/v13_30.png' %}">
+</div>
+<div class="v13_31">
+
+</div>
+</div>
+
+<button class="v13_32" onclick="document.getElementById('getFile').click()">Select</button>
+<input type='file' id="getFile" style="display:none"> 
+
+
+<button class="v13_33" onclick="upload_image()">Upload</button>
+
+<span class="v19_41">Select and Upload a Card</span>
+<span class="v19_42">(Aadhar , Pan , Driving  License)</span>
+<div class="v22_37">
+
+</div>
+<div class="v22_38">
+  {% load static %}
+      
+  <img src="{% static 'KYCData/images/ocr5.jpg' %}" width="140" height="140" >
+</div>
+<span class="v22_41">We aim on saving the time wasted in filling forms and reducing the number of mistakes
+  a user does during form filling process.
+</span>
+<div class="v19_43" name="showdetails" id="showdetails">
+  
+  <div id='loadingmessage' style="display:none;" class="gif">
+    {% load static %}
+    <img src="{% static 'KYCData/images/loading.gif' %}"/>
+  </div>
+
+</div>
+
+<div class="v13_22">
+  <div class="v13_19">
+
+  </div>
+  <div class="v13_20">
+
+  </div>
+  <div class="v13_21">
+
+  </div>
+</div>
+<span class="v23_45">AUTORACT is a project developed by VR Siddhartha Eng College IT-1 Students </span>
+<!-- <span class="v23_46">Team<br>
+Keerthi Koneru<br>
+Kancharla Prabhuram<br>
+Batchu Sai Krishna<br>
+Jangam Jai Gopal Jaswanth<br>
+Kotaru Saketh <br>
+</span> -->
+
+
+</div>
+</body>
+</html> 
+
+<style>* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 10px;
+}
+</style>

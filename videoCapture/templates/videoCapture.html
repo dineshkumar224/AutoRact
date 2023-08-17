@@ -1,0 +1,99 @@
+<html>
+    <title>Video Capture
+
+    </title>
+    <head>
+        <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script>
+            var webcam_vars = {};
+            $( document ).ready(function() {
+            const webcamElement = document.getElementById('webcam');
+            const canvasElement = document.getElementById('canvas');
+            const snapSoundElement = document.getElementById('snapSound');
+            const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+            webcam_vars.webcam = webcam;
+            webcam_vars.canvas = canvasElement;
+            
+                console.log( "ready!" );
+            });
+            
+            function startCamera()
+            {
+                webcam_vars.webcam.start().then(result =>{
+                    console.log("webcam started");
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            }
+
+            function snapPicture()
+            {
+                let picture = webcam_vars.webcam.snap();
+                var image = new Image();
+                image.src = picture;                
+                function mirrorImage(ctx, image, x = 0, y = 0, horizontal = false, vertical = false)
+                {
+                    //alert("mirroImage called")
+                    //ctx.save();  // save the current canvas state
+                    /*ctx.setTransform(
+                        horizontal ? -1 : 1, 0, // set the direction of x axis
+                        0, vertical ? -1 : 1,   // set the direction of y axis
+                        x + horizontal ? image.width : 0, // set the x origin
+                        y + vertical ? image.height : 0   // set the y origin
+                    );*/
+                    //ctx.drawImage(image,0,0);
+                    //ctx.restore();
+                     // restore the state as it was when this function was called
+                    //alert(ctx.);
+                     ctx.scale(-1, 1);
+                     width = document.getElementById("canvas").width;
+                     height = document.getElementById("canvas").height;
+                     alert(width);
+                     ctx.drawImage(image, width * -1, 0);
+                }
+
+                //document.querySelector('#download-photo').href = picture;
+                var ctx=webcam_vars.canvas.getContext("2d");
+                mirrorImage(ctx, image, 0, 0, true, false);
+                
+                //document.querySelector('#download-photo').href = image;
+            }
+
+            function download()
+            {
+                var download = document.getElementById("download");
+                //document.getElementById("canvas").style.transform = "scaleX(-1)";
+                //document.getElementById("canvas").style.webkitTransform = "scaleX(-1)";
+                var image = document.getElementById("canvas").toDataURL("image/png")
+                .replace("image/png", "image/octet-stream");
+                download.setAttribute("href", image);
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <video id="webcam" autoplay playsinline width="320" height="240"></video>
+            <!-- <canvas id="canvas" style="-webkit-transform: scaleX(-1);
+                transform: scaleX(-1);"></canvas>-->
+                <canvas id="canvas"></canvas>
+        </div>
+
+        <div>
+            <a id="download-photo" href="">
+
+            </a>
+            <button onclick="startCamera()">
+                Click
+            </button>
+            <button onclick="snapPicture()">
+                Snap
+            </button>
+            <a id="download" download="image.png">
+                <button type="button" onClick="download()">Download</button>
+            </a>
+        </div>
+    </body>
+    
+</html>

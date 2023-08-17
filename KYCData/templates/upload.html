@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+    <title>Upload</title>
+</head>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+<script>
+    
+function upload_image()
+{
+
+var formData = new FormData();
+var filedata = $('input[type=file]')[0].files[0];
+formData.append('file', filedata); 
+console.log(formData)
+
+$.ajax({
+    type:'POST', url : './upload-image',
+    async: true,
+    data:formData,
+    contentType: false,
+    processData: false,
+    success : function(data){
+        $('#showdetails').html(data)
+    },
+    error : alert("Could not process the image properly.",
+    "The reason can be poor quality of image. Try uploading a better quality image.")
+})
+}
+
+</script>
+<input id="id_video" type="file">
+<button onclick="upload_image()">Upload</button>
+<div id="showdetails">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+
+<style>
+.btn
+{
+  top: 300px;
+  left: 800px;
+}
+
+.split {
+    height: 100%;
+    width: 50%;
+    position: absolute;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .left {
+    left: 0;
+    background-color: white;
+  }
+  
+  .right {
+    right: 0;
+    background-color: white;
+  }
+  .centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+}
+
+.centered img {
+  width: 300px;
+  border-radius:0%;
+}
+</style>
+<script>
+  function storeData()
+  {
+    var aadhar_no = $('input[id="aadharNo"]')[0].value;
+    var dob = $('input[id="dob"]')[0].value;
+    var gender = $('input[id="gender"]')[0].value;
+    var name = $('input[id="name"]')[0].value;
+    var formData = new FormData();
+    formData.append('aadhar_no', aadhar_no);
+    formData.append('name', name);
+    formData.append('dob', dob);
+    formData.append('gender', gender);
+    //alert(aadhar_no+dob+gender+name);
+          $.ajax({
+          type:'POST', url : '../store-data',
+          async: true,
+          data:formData,
+          contentType: false,
+          processData: false,
+          success : function(data){
+              //$('#showdetails').html(data)
+              console.log("Aadhar data saved sucessfully!");
+              $('#details').html(data);
+          },
+        })
+  }
+</script>
+<div class="split left"><div class="centered">
+    <img src={{imageUploaded}} alt="Paris">
+</div></div>
+
+<div class="split right"><div class="centered">
+  <div id='details'>
+
+  </div>
+<div style="font-weight: bold; color: darkblue; text-align: center; font-size:25px;">Details...</div>
+<form method='post' enctype="multipart/form-data">
+  {% csrf_token %}
+<div style="font-size: 15px;">Name: <div> <input id="name" value="{{name}}" style="text-align: left; border-width: thin;"> </input></div></div><br>
+<div style="font-size: 15px;">Date of Birth:<div><input id="dob" value="{{dob}}" style="text-align: left; border-width: thin;"></input></div> </div><br>
+<div style="font-size: 15px;">Gender: 
+  <div>
+    <input id="gender" value="{{gender}}" style="text-align: left; border-width: thin;"> 
+    </input>
+  </div>
+</div>
+<br>
+
+<div style="font-size: 15px;">Aadhar Number: 
+<div>
+<input id="aadharNo" value="{{aadhar_no}}" style="text-align: left; border-width: thin;"> 
+</input>
+
+</div>
+
+</div><br>
+<button type="submit" onclick="storeData()">Store Data</button>
+</div>
+
+  
+</form>
+</div>
+  
+  
